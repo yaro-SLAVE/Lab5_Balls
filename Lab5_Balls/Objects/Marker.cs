@@ -14,11 +14,11 @@ namespace Lab5_Balls.Objects
 
         public override void render(Graphics g)
         {
-            if (color == Color.White)
+            if (color)
             {
-                g.FillEllipse(new SolidBrush(color), -3, -3, 6, 6);
-                g.DrawEllipse(new Pen(color), -6, -6, 12, 12);
-                g.DrawEllipse(new Pen(color, 2), -10, -10, 20, 20);
+                g.FillEllipse(new SolidBrush(Color.White), -3, -3, 6, 6);
+                g.DrawEllipse(new Pen(Color.White), -6, -6, 12, 12);
+                g.DrawEllipse(new Pen(Color.White, 2), -10, -10, 20, 20);
             }
             else
             {

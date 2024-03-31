@@ -16,6 +16,17 @@ namespace Lab5_Balls
         public Menu()
         {
             InitializeComponent();
+
+            vCoefBox.Value = Properties.Settings.Default.vCoef;
+            countEllBox.Value = Properties.Settings.Default.countEll;
+            switch (Properties.Settings.Default.version)
+            {
+                case 0:
+                    danZoneRadio.Enabled = true; break;
+
+                case 1:
+                    wallRadio.Enabled = true; break;
+            }
         }
 
         private void setVariables()
@@ -31,8 +42,6 @@ namespace Lab5_Balls
                 Properties.Settings.Default.version = 1;
             }
             Properties.Settings.Default.Save();
-
-            Program.switchForm(formId);
         }
 
         private void startButton_Click(object sender, EventArgs e)
@@ -45,24 +54,6 @@ namespace Lab5_Balls
         private void Menu_FormClosing(object sender, FormClosingEventArgs e)
         {
             setVariables();
-
-            Program.switchForm(formId);
-        }
-
-        public void formShow()
-        {
-            vCoefBox.Value = Properties.Settings.Default.vCoef;
-            countEllBox.Value = Properties.Settings.Default.countEll;
-            switch (Properties.Settings.Default.version)
-            {
-                case 0:
-                    danZoneRadio.Enabled = true; break;
-
-                case 1:
-                    wallRadio.Enabled = true; break;
-            }
-
-            this.Show();
         }
     }
 }

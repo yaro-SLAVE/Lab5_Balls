@@ -20,23 +20,18 @@ namespace Lab5_Balls
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            form1 = new Form1();
             form2 = new Menu();
-            Application.Run(form1);
+            Application.Run(form2);
         }
 
         public static void switchForm(int id)
         {
             switch(id)
             {
-                case 1:
-                    form1.Hide();
-                    form2.formShow();
-                    break;
-
                 case 2:
+                    form1 = new Form1();
                     form2.Hide();
-                    form1.formShow();
+                    form1.Show();
                     break;
             }
         }

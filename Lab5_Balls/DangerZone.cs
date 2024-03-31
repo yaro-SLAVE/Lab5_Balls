@@ -17,16 +17,8 @@ namespace Lab5_Balls
 
         public override void render(Graphics g)
         {
-            if (color == Color.White)
-            {
-                g.FillEllipse(new SolidBrush(color), -this.radius, -this.radius, this.radius * 2, this.radius * 2);
-                g.DrawEllipse(new Pen(color), -this.radius, -this.radius, this.radius * 2, this.radius * 2);
-            }
-            else
-            {
-                g.FillEllipse(new SolidBrush(Color.MistyRose), -this.radius, -this.radius, this.radius * 2, this.radius * 2);
-                g.DrawEllipse(new Pen(Color.Red), -this.radius, -this.radius, this.radius * 2, this.radius * 2);
-            }
+            g.FillEllipse(new SolidBrush(Color.MistyRose), -this.radius, -this.radius, this.radius * 2, this.radius * 2);
+            g.DrawEllipse(new Pen(Color.Red), -this.radius, -this.radius, this.radius * 2, this.radius * 2);
         }
 
         public override GraphicsPath getGraphicsPath()

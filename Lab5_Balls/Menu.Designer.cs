@@ -119,13 +119,11 @@
             // wallRadio
             // 
             this.wallRadio.AutoSize = true;
-            this.wallRadio.Checked = true;
             this.wallRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.wallRadio.Location = new System.Drawing.Point(12, 177);
             this.wallRadio.Name = "wallRadio";
             this.wallRadio.Size = new System.Drawing.Size(275, 36);
             this.wallRadio.TabIndex = 5;
-            this.wallRadio.TabStop = true;
             this.wallRadio.Text = "Негативная стена";
             this.wallRadio.UseVisualStyleBackColor = true;
             // 

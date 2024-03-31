@@ -13,7 +13,7 @@ namespace Lab5_Balls.Objects
         public float x;
         public float y;
         public float angle;
-        public Color color;
+        public bool color;
 
         public Action<BaseObject, BaseObject> onOverlap;
 

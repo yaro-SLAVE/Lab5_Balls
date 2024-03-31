@@ -34,7 +34,6 @@
             this.logBox = new System.Windows.Forms.RichTextBox();
             this.labelScores = new System.Windows.Forms.Label();
             this.targetTimer = new System.Windows.Forms.Timer(this.components);
-            this.buttonMenu = new System.Windows.Forms.Button();
             this.danZoneTimer = new System.Windows.Forms.Timer(this.components);
             this.wallTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.mainField)).BeginInit();
@@ -79,17 +78,6 @@
             this.targetTimer.Interval = 200;
             this.targetTimer.Tick += new System.EventHandler(this.targetTimer_Tick);
             // 
-            // buttonMenu
-            // 
-            this.buttonMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonMenu.Location = new System.Drawing.Point(994, 4);
-            this.buttonMenu.Name = "buttonMenu";
-            this.buttonMenu.Size = new System.Drawing.Size(180, 55);
-            this.buttonMenu.TabIndex = 3;
-            this.buttonMenu.Text = "Меню";
-            this.buttonMenu.UseVisualStyleBackColor = true;
-            this.buttonMenu.Click += new System.EventHandler(this.buttonMenu_Click);
-            // 
             // danZoneTimer
             // 
             this.danZoneTimer.Interval = 20;
@@ -97,7 +85,7 @@
             // 
             // wallTimer
             // 
-            this.wallTimer.Interval = 50;
+            this.wallTimer.Interval = 10;
             this.wallTimer.Tick += new System.EventHandler(this.wallTimer_Tick);
             // 
             // Form1
@@ -105,12 +93,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 509);
-            this.Controls.Add(this.buttonMenu);
             this.Controls.Add(this.labelScores);
             this.Controls.Add(this.logBox);
             this.Controls.Add(this.mainField);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.mainField)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -124,7 +112,6 @@
         private System.Windows.Forms.RichTextBox logBox;
         private System.Windows.Forms.Label labelScores;
         private System.Windows.Forms.Timer targetTimer;
-        private System.Windows.Forms.Button buttonMenu;
         private System.Windows.Forms.Timer danZoneTimer;
         private System.Windows.Forms.Timer wallTimer;
     }

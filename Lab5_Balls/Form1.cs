@@ -32,7 +32,23 @@ namespace Lab5_Balls
             danZone = new DangerZone(0, 0, 0);
             wall = new NegativeWall(0, mainField.Height / 2, 0, mainField.Height, mainField.Width);
 
-            formShow();
+            version = Properties.Settings.Default.version;
+
+            timer1.Enabled = true;
+            targetTimer.Enabled = true;
+
+            switch (version)
+            {
+                case 0:
+                    objects.Add(danZone);
+                    updateDangerZone();
+                    danZoneTimer.Enabled = true;
+                    break;
+                case 1:
+                    objects.Add(wall);
+                    wallTimer.Enabled = true;
+                    break;
+            }
 
             int n = Properties.Settings.Default.countEll;
             for (int i = 0; i < n; ++i)
@@ -74,6 +90,11 @@ namespace Lab5_Balls
                 addTarget();
             };
 
+            wall.onObjectOverlap += (o) =>
+            {
+                o.color = true;
+            };
+
             objects.Add(marker);
             objects.Add(player);
         }
@@ -100,16 +121,27 @@ namespace Lab5_Balls
                     obj.overlap(target);
                 }
 
-                else if (obj is Player && danZone.overlaps(obj, g))
+                else if (obj == player && danZone.overlaps(obj, g))
                 {
                     danZone.overlap(obj);
                     obj.overlap(danZone);
                 }
 
-                else if (obj != player && player.overlaps(obj, g))
+                else if (obj != player && player.overlaps(obj, g) && obj != wall)
                 {
                     player.overlap(obj);
                     obj.overlap(player);
+                }
+
+                if (obj != wall && wall.overlaps(obj, g))
+                {
+                    wall.overlap(obj);
+                    obj.overlap(wall);
+                }
+
+                else
+                {
+                    obj.color = false;
                 }
             }
 
@@ -134,7 +166,7 @@ namespace Lab5_Balls
                 player.x += dx * 2;
                 player.y += dy * 2;
 
-                float vCoef = (float) Properties.Settings.Default.vCoef / 10;
+                float vCoef = Properties.Settings.Default.vCoef * 0.1f;
 
                 player.vX += dx * vCoef;
                 player.vY += dy * vCoef;
@@ -204,15 +236,6 @@ namespace Lab5_Balls
             }
         }
 
-        private void buttonMenu_Click(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            targetTimer.Enabled = false;
-            danZoneTimer.Enabled = false;
-            wallTimer.Enabled = false;
-            Program.switchForm(formId);
-        }
-
         private void danZoneTimer_Tick(object sender, EventArgs e)
         {
             this.danZone.resize();
@@ -221,30 +244,6 @@ namespace Lab5_Balls
         private void wallTimer_Tick(object sender, EventArgs e)
         {
             wall.move();
-        }
-
-        public void formShow()
-        {
-            this.version = Properties.Settings.Default.version;
-
-            timer1.Enabled = true;
-            targetTimer.Enabled = true;
-
-            switch (this.version)
-            {
-                case 0:
-                    danZoneTimer.Enabled = true;
-                    updateDangerZone();
-                    objects.Add(danZone);
-                    break;
-                case 1:
-                    objects.Remove(danZone);
-                    objects.Add(wall);
-                    wallTimer.Enabled = true;
-                    break;
-            }
-
-            this.Show();
         }
 
         private void updateDangerZone()
@@ -259,6 +258,11 @@ namespace Lab5_Balls
             danZone.radius = 2;
             danZone.x = x;
             danZone.y = y;
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

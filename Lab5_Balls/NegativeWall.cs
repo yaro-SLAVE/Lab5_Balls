@@ -15,28 +15,25 @@ namespace Lab5_Balls
         private float fieldHeight;
         private float fieldWidth;
         private float width = 1;
-        private float x1;
-        private float maxWidth = 100;
+        private float maxWidth = 250;
 
         public NegativeWall(float x, float y, float angle, float height, float width) : base(x, y, angle) 
         {
             this.fieldHeight = height;
             this.fieldWidth = width;
-            color = Color.Black;
-            x1 = x;
         }
         public Action<BaseObject> onObjectOverlap;
 
         public override void render(Graphics g)
         {
-            g.FillRectangle(new SolidBrush(color), x1, y, width, fieldHeight);
-            g.DrawRectangle(new Pen(color), x1, y, width, fieldHeight);
+            g.FillRectangle(new SolidBrush(Color.Black), -width / 2, -y, width, fieldHeight);
+            g.DrawRectangle(new Pen(Color.Black), -width / 2, -y, width, fieldHeight);
         }
 
         public override GraphicsPath getGraphicsPath()
         {
             var path = base.getGraphicsPath();
-            path.AddEllipse(x1, y, width, fieldHeight);
+            path.AddEllipse(-width / 2, -y, width, fieldHeight);
             return path;
         }
 
@@ -52,24 +49,24 @@ namespace Lab5_Balls
 
         public void move()
         {
-            if (width < maxWidth && x1 < maxWidth / 2)
+            if (width < maxWidth && x < maxWidth / 2)
             {
                 ++width;
-                x1 = width / 2;
+                x = width / 2;
             }
-            else if(width == maxWidth && x1 <= fieldWidth - maxWidth / 2)
+            else if (x == fieldWidth)
             {
-                ++x1;
+                x = 0;
+                width = 1;
             }
-            else if (x1 > fieldWidth - maxWidth / 2)
+            else if(width == maxWidth && x <= fieldWidth - maxWidth / 2)
+            {
+                ++x;
+            }
+            else if (x > fieldWidth - maxWidth / 2)
             {
                 --width;
-                ++x1;
-            }
-            else if (x1 == fieldWidth)
-            {
-                x1 = 0;
-                width = 0;
+                ++x;
             }
         }
     }

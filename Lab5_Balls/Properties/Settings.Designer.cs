@@ -25,7 +25,7 @@ namespace Lab5_Balls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int vCoef {
             get {
                 return ((int)(this["vCoef"]));
