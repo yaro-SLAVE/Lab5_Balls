@@ -11,7 +11,7 @@ namespace Lab5_Balls
 {
     public class Target : BaseObject
     {
-        private int radius = 25;
+        private int radius = 35;
         public Target(float x, float y, float angle) : base(x, y, angle) { }
         public Action<Target> onTargetOverlap;
 

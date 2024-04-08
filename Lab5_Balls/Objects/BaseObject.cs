@@ -16,6 +16,7 @@ namespace Lab5_Balls.Objects
         public bool color;
 
         public Action<BaseObject, BaseObject> onOverlap;
+        public Action<BaseObject> dontObjectOverlap;
 
         public BaseObject(float x, float y, float angle)
         {
@@ -60,6 +61,14 @@ namespace Lab5_Balls.Objects
             if (this.onOverlap != null)
             {
                 this.onOverlap(this, obj);
+            }
+        }
+
+        public void dontOverlap(BaseObject obj)
+        {
+            if (obj != null)
+            {
+                dontObjectOverlap(obj);
             }
         }
     }

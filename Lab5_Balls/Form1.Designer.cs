@@ -75,7 +75,7 @@
             // 
             // targetTimer
             // 
-            this.targetTimer.Interval = 200;
+            this.targetTimer.Interval = 80;
             this.targetTimer.Tick += new System.EventHandler(this.targetTimer_Tick);
             // 
             // danZoneTimer

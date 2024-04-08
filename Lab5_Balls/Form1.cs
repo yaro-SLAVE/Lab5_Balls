@@ -15,6 +15,7 @@ namespace Lab5_Balls
     {
         private int formId = 1;
         private static List<BaseObject> objects = new List<BaseObject>();
+        private static List<BaseObject> negativeObjects = new List<BaseObject>();
         private Player player;
         private Marker marker;
         private Target target;
@@ -22,6 +23,7 @@ namespace Lab5_Balls
         private NegativeWall wall;
         private int scores = 0;
         private int version;
+        private static Random rand = new Random();
 
         public Form1()
         {
@@ -92,8 +94,13 @@ namespace Lab5_Balls
 
             wall.onObjectOverlap += (o) =>
             {
-                o.color = true;
+                negativeObjects.Add(o);
             };
+
+           /* wall.dontObjectOverlap += (o) =>
+            {
+                negativeObjects.Remove(o);
+            };*/
 
             objects.Add(marker);
             objects.Add(player);
@@ -106,49 +113,25 @@ namespace Lab5_Balls
             g.Clear(Color.White);
 
             updatePlayer();
+            negativeObjects.Clear();
 
-            foreach (var obj in objects.ToList())
+            foreach (var obj1 in objects.ToList())
             {
-                if (obj is Target && player.overlaps(obj, g))
+                foreach (var obj2 in objects.ToList())
                 {
-                    player.overlap(obj);
-                    obj.overlap(player);
-                }
-
-                else if (obj is Target && target.overlaps(obj, g))
-                {
-                    target.overlap(obj);
-                    obj.overlap(target);
-                }
-
-                else if (obj == player && danZone.overlaps(obj, g))
-                {
-                    danZone.overlap(obj);
-                    obj.overlap(danZone);
-                }
-
-                else if (obj != player && player.overlaps(obj, g) && obj != wall)
-                {
-                    player.overlap(obj);
-                    obj.overlap(player);
-                }
-
-                if (obj != wall && wall.overlaps(obj, g))
-                {
-                    wall.overlap(obj);
-                    obj.overlap(wall);
-                }
-
-                else
-                {
-                    obj.color = false;
+                    if (obj1 != obj2 && obj1.overlaps(obj2, g))
+                    {
+                        obj1.overlap(obj2);
+                    }
                 }
             }
 
             foreach (var obj in objects)
             {
                 g.Transform = obj.getTransform();
+                obj.color = negativeObjects.Contains(obj);
                 obj.render(g);
+
             }
         }
 
@@ -166,19 +149,20 @@ namespace Lab5_Balls
                 player.x += dx * 2;
                 player.y += dy * 2;
 
-                float vCoef = Properties.Settings.Default.vCoef * 0.1f;
+                float vCoef = Properties.Settings.Default.vCoef * 0.25f;
 
                 player.vX += dx * vCoef;
                 player.vY += dy * vCoef;
 
                 player.angle = (float)(90 - Math.Atan2(player.vX, player.vY) * 180 / Math.PI);
 
-                player.vX += -player.vX * vCoef / 5;
-                player.vY += -player.vY * vCoef / 5;
-
-                player.x += player.vX;
-                player.y += player.vY;
+              
             }
+            player.vX += -player.vX * 0.1f;
+            player.vY += -player.vY * 0.1f;
+
+            player.x += player.vX;
+            player.y += player.vY;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -201,9 +185,8 @@ namespace Lab5_Balls
 
         private void addTarget()
         {
-            var rand = new Random(Guid.NewGuid().GetHashCode());
 
-            var d = 50;
+            var d = 70;
 
             var x = rand.Next() % (mainField.Width - d) + d;
             var y = rand.Next() % (mainField.Height - d) + d;
